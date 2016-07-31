@@ -1,0 +1,82 @@
+Write a program that prints the numbers from 1 to 100. But for multiples of three print "Fizz" instead of the number and for the multiples of five print "Buzz". For numbers which are multiples of both three and five print "FizzBuzz" 
+
+function fizzBuzz(length, fizzNum, buzzNum){
+	var output;
+	for(i = 1; i < length; i++){
+		output = '';
+		if(i % fizzNum === 0){
+		output += "Fizz";
+		}
+		if(i % buzzNum === 0){
+		output += "Buzz";
+		}
+		if((i % fizzNum !== 0) && (i% buzzNum !== 0)){
+		output += i
+		}
+		} print(output);
+	}
+}
+
+fizzBuzz(100, 3, 5);
+
+A palindromic number reads the same both ways. The largest palindrome made from the product of two 2-digit numbers is 9009 = 91 × 99. Find the largest palindrome made from the product of two 3-digit numbers. (We will do this in class, so don’t get to worked up if you can’t get it)
+
+function largestPalindrome(){
+	var arr = [];
+	for(var i = 999; i > 99; i--){
+		for(var j=999; j > 99; j--){
+			var mul = j * i;
+			if(isPalin(mul)){
+			arr.push(j*i);
+			}
+		}
+	}
+	return Math.max.apply(Math, arr);
+}
+
+function isPalin(i){
+	return i.toString() === i.toString().split("").reverse().join("");
+}
+
+INCLASS coding
+
+function amIAPalindrome(thingToCheck){
+ // check if the argument passed (thingToCheck) is a palindrome,
+ // so we don't waste time checking EVERYTHING in line.
+ // problem 1. we have a number. let's make it a string.
+  var numberAsAString = thingToCheck.toString();
+  
+  // split the string into an array so we can reverse it easier
+  
+  var numberExploded = numberAsAString.split('');
+  // we have an array of single numbers per index. Let's reverse it with reverse()
+  var numberReversed = numberExploded.reverse();
+  //put the array back together because we need it to be a string for comparison
+  numberReversed = numberReversed.join('');
+  //one monster line to rule them all
+  //console.log(thingToCheck.toString().split('').reverse().join(''));
+
+	if(numberReversed == thingToCheck){
+		return true; //it's a palindrome
+	}else{
+		return false; // this is no palindrome
+	}
+}
+
+var answerToTheEvilQuestion = 0;
+
+//start with 100 (this is the smallest 3 digit number) and go up to 999, the largest 3 digit number
+for(var i = 100; i < 1000; i++){
+	for(var j = 100; j < 1000; j++){
+		// we have two 3 digit numbers every time through the loop. Multiply them, check if the product is a palindrome. If so, see if it's bigger than the answerToTheEvilQuestion.
+		var currentProduct = i * j;
+		if(amIAPalindrome(currentProduct)){
+			// console.log(currentProduct);
+			if(currentProduct > answerToTheEvilQuestion){
+				answerToTheEvilQuestion = currentProduct;
+			}
+		}
+	}
+}
+
+console.log(answerToTheEvilQuestion);
